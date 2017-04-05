@@ -1,0 +1,32 @@
+[core]
+	excludesfile = /Users/danny/.gitignore_global
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = Danny Gershman
+	email = dgershman@securityscorecard.io
+	signingkey = 20B04D24
+[commit]
+	template = /Users/danny/.stCommitMsg
+	gpgsign = true
+[merge]
+	tool = bc3
+[mergetool]
+	bc3 = trustExitCode
+	prompt = false
+	bc3 = trustExitCode
+[diff]
+	tool = bc3
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustexitcode = true
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+	path = -ro
+[gpg]
+	program = /usr/local/MacGPG2/bin/gpg2
