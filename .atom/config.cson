@@ -1,0 +1,35 @@
+"*":
+  "atom-beautify":
+    _analyticsUserId: "f8e28561-8547-46db-b6bd-e79e1daf51ad"
+    general:
+      _analyticsUserId: "1a8886dc-88e1-4557-b8b5-c33ee0734568"
+  core:
+    disabledPackages: [
+      "whitespace"
+    ]
+    telemetryConsent: "no"
+    themes: [
+      "seti-ui"
+      "atom-dark-syntax"
+    ]
+  editor:
+    fontFamily: "monaco"
+    fontSize: 17
+  "exception-reporting":
+    userId: "37773152-a768-fe05-ca33-4f53d64b0e28"
+  metrics:
+    userId: "d55a10b63705852b99d01f018e2c874d891debd5"
+  "seti-ui":
+    compactView: true
+    themeColor: "Orange"
+  "sync-settings":
+    _analyticsUserId: "8e13d06d-506c-4415-bfa2-207ffa3bd0d6"
+    _lastBackupHash: "3cad03a3c4831fae62dc7469937a43e7cf591397"
+    gistId: "f02b635c0866d6d2ad30"
+    personalAccessToken: "9031cd50d8e5315af83089bfaa829069f8402484"
+  "tree-view":
+    hideVcsIgnoredFiles: true
+  welcome:
+    showOnStartup: false
+  whitespace:
+    removeTrailingWhitespace: false
