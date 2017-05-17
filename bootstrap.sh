@@ -3,6 +3,7 @@
 ln -s ~/.dotfiles/zshrc ~/.zshrc
 ln -s ~/.dotfiles/.atom ~/.atom
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
+ln -s ~/.dotfiles/.hyper.js ~/.hyper.js
 git pull && git submodule init && git submodule update && git submodule status
 cp -R custom-themes/*.zsh-theme .oh-my-zsh/themes/
 ln -s ~/.dotfiles/.oh-my-zsh ~/.oh-my-zsh

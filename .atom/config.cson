@@ -17,6 +17,8 @@
     fontSize: 17
   "exception-reporting":
     userId: "37773152-a768-fe05-ca33-4f53d64b0e28"
+  linter:
+    errorPanelHeight: 217
   metrics:
     userId: "d55a10b63705852b99d01f018e2c874d891debd5"
   "seti-ui":
