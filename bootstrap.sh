@@ -16,4 +16,5 @@ pkill ssh-agent ; pkill gpg-agent ; \
   eval $(gpg-agent --daemon --enable-ssh-support --use-standard-socket \
   --log-file ~/.gnupg/gpg-agent.log --write-env-file)
 
+chsh -s $(grep /zsh$ /etc/shells | tail -1)
 echo "Install GPGSuite for macOS https://gpgtools.org/"

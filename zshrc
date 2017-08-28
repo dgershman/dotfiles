@@ -218,17 +218,13 @@ export PYTHONSTARTUP=$HOME/.pythonstartup
 export PATH=$PATH:/Users/danny/bin:$GOROOT/bin:$GOPATH/bin
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export GPG_ENV=$HOME/.gnupg/gpg-agent.env
-eval $(/usr/bin/env gpg-agent --quiet --daemon --enable-ssh-support --write-env-file ${GPG_ENV} 2> /dev/null)
-chmod 600 ${GPG_ENV}
-source ${GPG_ENV}
-
-source $HOME/.cargo/env
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-source /Users/danny/.rvm/scripts/rvm
+gpg-agent --daemon --enable-ssh-support \
+          --write-env-file "${HOME}/.gpg-agent-info"
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+  . "${HOME}/.gpg-agent-info"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+fi
 
 if [ $TERM_PROGRAM = "iTerm.app" ]; then
   osascript -e 'tell application "System Events" to keystroke "e" using {command down, shift down}'
