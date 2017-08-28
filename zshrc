@@ -133,7 +133,7 @@ function func_decrypt() {
 		echo "Usage: decrypt FILE.gpg"
 		return
 	fi 
-	gpg --output $1.out --decrypt $1
+	gpg2 --output $1.out --decrypt $1
 }
 
 function func_encrypt() {
@@ -142,7 +142,7 @@ function func_encrypt() {
                 echo "Usage: encrypt KEY FILE.EXT"
                 return
         fi
-	gpg --encrypt --recipient $1 $2
+	gpg2 --armor --encrypt --recipient $1 $2
 }
 
 function func_engine_mongo() {
@@ -154,9 +154,14 @@ function func_reset_card() {
 	ssh-add -L
 }
 
-function func_git_checkout() {
-	git checkout $1
+function func_att_domains() {
+	curl https://attribution.daymax.xyz/v1/ip/$1/domains
 }
+
+function func_att_ips() {
+	curl https://attribution.daymax.xyz/v1/domain/$1/ips
+}
+
 
 alias ll='ls -al'
 alias h='history'
@@ -183,11 +188,10 @@ alias encrypt='func_encrypt'
 alias decrypt='func_decrypt'
 alias engine_mongo='func_engine_mongo'
 alias ry='func_reset_card'
-alias gs='git status'
-alias gpum='git pull upstream master'
-alias co='func_git_checkout'
+alias atrdomains='func_att_domains'
+alias atrips='func_att_ips'
 alias gpom='git push origin master'
-alias gac='git add . && git commit'
+alias tf='terraform'
 
 #source `brew --prefix git`/etc/bash_completion.d/git-prompt.sh
 #export GIT_PS1_SHOWDIRTYSTATE='1'
