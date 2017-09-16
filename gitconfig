@@ -6,7 +6,7 @@
 [user]
 	name = Danny Gershman
 	email = dgershman@securityscorecard.io
-	signingkey = 20B04D24
+	signingkey = 7D2E1496
 [commit]
 	template = /Users/danny/.stCommitMsg
 	gpgsign = true
@@ -32,3 +32,5 @@
 	program = /usr/local/MacGPG2/bin/gpg2
 [url "git@github.com:"]
 	insteadOf = https://radius314@github.com/
+[gui]
+	warndetachedcommit = true

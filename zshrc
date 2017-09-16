@@ -225,6 +225,7 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
   export GPG_AGENT_INFO
   export SSH_AUTH_SOCK
 fi
+export GPG_TTY=$(tty)
 
 if [ $TERM_PROGRAM = "iTerm.app" ]; then
   osascript -e 'tell application "System Events" to keystroke "e" using {command down, shift down}'
