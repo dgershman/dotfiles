@@ -145,23 +145,10 @@ function func_encrypt() {
 	gpg2 --armor --encrypt --recipient $1 $2
 }
 
-function func_engine_mongo() {
-	mongo 10.166.68.108/security-scorecard-engine
-}
-
 function func_reset_card() {
 	pkill -f gpg-agent
 	ssh-add -L
 }
-
-function func_att_domains() {
-	curl https://attribution.daymax.xyz/v1/ip/$1/domains
-}
-
-function func_att_ips() {
-	curl https://attribution.daymax.xyz/v1/domain/$1/ips
-}
-
 
 alias ll='ls -al'
 alias h='history'
@@ -192,6 +179,7 @@ alias atrdomains='func_att_domains'
 alias atrips='func_att_ips'
 alias gpom='git push origin master'
 alias tf='terraform'
+alias st='/Applications/SourceTree.app/Contents/MacOS/SourceTree &'
 
 #source `brew --prefix git`/etc/bash_completion.d/git-prompt.sh
 #export GIT_PS1_SHOWDIRTYSTATE='1'
