@@ -49,7 +49,7 @@ ZSH_THEME="xxf"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git aws docker osx)
 
 # User configuration
 
@@ -181,6 +181,8 @@ alias gpom='git push origin master'
 alias tf='terraform'
 alias st='/Applications/SourceTree.app/Contents/MacOS/SourceTree &'
 
+eval "$(hub alias -s)"
+
 #source `brew --prefix git`/etc/bash_completion.d/git-prompt.sh
 #export GIT_PS1_SHOWDIRTYSTATE='1'
 #export PS1="\[${COLOR_BLUE}\]\$(__git_ps1) \[${COLOR_RED}\]\w \[${COLOR_NC}\]"
@@ -201,19 +203,21 @@ export GOROOT=/usr/local/Cellar/go/1.6.3/libexec
 export GOPATH=/Users/danny/Projects/gosandbox/src
 export PYTHONSTARTUP=$HOME/.pythonstartup
 
+eval "$(hub alias -s)"
+
+[ -f ~/.gpg-agent-info ] && source ~/.gpg-agent-info
+if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
+  export GPG_AGENT_INFO
+else
+  eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
+fi
+
+ssh-add -l
+
 . "$(brew --prefix nvm)/nvm.sh"
 
 export PATH=$PATH:/Users/danny/bin:$GOROOT/bin:$GOPATH/bin
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-gpg-agent --daemon --enable-ssh-support \
-          --write-env-file "${HOME}/.gpg-agent-info"
-if [ -f "${HOME}/.gpg-agent-info" ]; then
-  . "${HOME}/.gpg-agent-info"
-  export GPG_AGENT_INFO
-  export SSH_AUTH_SOCK
-fi
-export GPG_TTY=$(tty)
 
 if [ $TERM_PROGRAM = "iTerm.app" ]; then
   osascript -e 'tell application "System Events" to keystroke "e" using {command down, shift down}'
