@@ -1,15 +1,15 @@
 [core]
 	excludesfile = /Users/danny/.gitignore_global
 [mergetool "sourcetree"]
-	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
 	name = Danny Gershman
-	email = dgershman@securityscorecard.io
+	email = danny.gershman@gmail.com
 	signingkey = 7D2E1496
 [commit]
 	template = /Users/danny/.stCommitMsg
-	gpgsign = true
+#	gpgsign = true
 [merge]
 	tool = bc3
 [mergetool]
@@ -26,10 +26,10 @@
 [difftool]
 	prompt = false
 [difftool "sourcetree"]
-	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
-	path = -ro
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
 [gpg]
-	program = /usr/local/MacGPG2/bin/gpg2
+	program = /usr/local/bin/gpg1
 [url "git@github.com:"]
 	insteadOf = https://radius314@github.com/
 [gui]
