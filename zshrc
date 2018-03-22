@@ -205,13 +205,8 @@ export PYTHONSTARTUP=$HOME/.pythonstartup
 
 eval "$(hub alias -s)"
 
-[ -f ~/.gpg-agent-info ] && source ~/.gpg-agent-info
-if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
-  export GPG_AGENT_INFO
-else
-  eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
-fi
-
+eval $( gpg-agent --daemon )
+export SSH_AUTH_SOCK=~/.gnupg/S.gpg-agent.ssh
 ssh-add -l
 
 . "$(brew --prefix nvm)/nvm.sh"
@@ -222,3 +217,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 if [ $TERM_PROGRAM = "iTerm.app" ]; then
   osascript -e 'tell application "System Events" to keystroke "e" using {command down, shift down}'
 fi
+
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
