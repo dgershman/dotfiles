@@ -180,6 +180,7 @@ alias atrips='func_att_ips'
 alias gpom='git push origin master'
 alias tf='terraform'
 alias st='/Applications/SourceTree.app/Contents/MacOS/SourceTree &'
+alias gnureset='rm -rf ~/.gnupg/S.gpg-agent* && source ~/.zshrc'
 
 eval "$(hub alias -s)"
 
@@ -199,8 +200,8 @@ export JAVA_HOME=$JAVA8_HOME
 export LDFLAGS=-L/usr/local/opt/tcl-tk/lib
 export CPPFLAGS=-I/usr/local/opt/tcl-tk/include
 export NVM_DIR="$HOME/.nvm"
-export GOROOT=/usr/local/Cellar/go/1.6.3/libexec
-export GOPATH=/Users/danny/Projects/gosandbox/src
+export GOROOT=/usr/local/Cellar/go/1.10.3/libexec
+export GOPATH=$HOME/go
 export PYTHONSTARTUP=$HOME/.pythonstartup
 
 eval "$(hub alias -s)"
@@ -219,3 +220,6 @@ if [ $TERM_PROGRAM = "iTerm.app" ]; then
 fi
 
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+export PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
