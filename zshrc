@@ -194,7 +194,7 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 export JAVA6_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 export JAVA7_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home
-export JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home
+export JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home
 export PATH=/usr/local/jboss-as-mss/bin:/usr/local/sbin:/usr/local/share/npm/bin:$JAVA_HOME_6/bin:$PATH
 export JAVA_HOME=$JAVA8_HOME
 export LDFLAGS=-L/usr/local/opt/tcl-tk/lib
