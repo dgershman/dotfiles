@@ -181,7 +181,9 @@ alias gpom='git push origin master'
 alias tf='terraform'
 alias st='/Applications/SourceTree.app/Contents/MacOS/SourceTree &'
 alias gnureset='rm -rf ~/.gnupg/S.gpg-agent* && source ~/.zshrc'
-alias lg='lazygit'
+alias gg='lazygit'
+alias xc='pbcopy'
+alias xp='pbpaste'
 
 eval "$(hub alias -s)"
 
