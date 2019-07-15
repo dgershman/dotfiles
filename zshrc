@@ -179,6 +179,9 @@ alias atrdomains='func_att_domains'
 alias atrips='func_att_ips'
 alias gpom='git push origin master'
 alias tf='terraform'
+alias tff='terraform fmt'
+alias tfp='terraform plan -out=plan.plan'
+alias tfa='terraform apply plan.plan'
 alias st='/Applications/SourceTree.app/Contents/MacOS/SourceTree &'
 alias gnureset='rm -rf ~/.gnupg/S.gpg-agent* && source ~/.zshrc'
 alias gg='lazygit'
@@ -225,4 +228,5 @@ fi
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+eval "$(rbenv init -)"
 export PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
