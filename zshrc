@@ -150,6 +150,10 @@ function func_reset_card() {
 	ssh-add -L
 }
 
+function func_keybase_encrypt() {
+	pbpaste | xargs -I % keybase pgp encrypt $1 -m %
+}
+
 alias ll='ls -al'
 alias h='history'
 alias c='clear'
@@ -187,6 +191,7 @@ alias gnureset='rm -rf ~/.gnupg/S.gpg-agent* && source ~/.zshrc'
 alias gg='lazygit'
 alias xc='pbcopy'
 alias xp='pbpaste'
+alias keybase_encrypt='func_keybase_encrypt'
 
 eval "$(hub alias -s)"
 
@@ -206,8 +211,8 @@ export JAVA_HOME=$JAVA8_HOME
 export LDFLAGS=-L/usr/local/opt/tcl-tk/lib
 export CPPFLAGS=-I/usr/local/opt/tcl-tk/include
 export NVM_DIR="$HOME/.nvm"
-export GOROOT=/usr/local/Cellar/go/1.10.3/libexec
-export GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/Projects/go
 export PYTHONSTARTUP=$HOME/.pythonstartup
 
 eval "$(hub alias -s)"
@@ -230,3 +235,8 @@ export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 eval "$(rbenv init -)"
 export PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault
+setopt complete_aliases
+
