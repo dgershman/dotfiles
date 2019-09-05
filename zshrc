@@ -154,6 +154,14 @@ function func_keybase_encrypt() {
 	pbpaste | xargs -I % keybase pgp encrypt $1 -m %
 }
 
+function func_fly4() {
+	alias fly='fly4'
+}
+
+function func_fly5() {
+	alias fly='fly5'
+}
+
 alias ll='ls -al'
 alias h='history'
 alias c='clear'
@@ -192,6 +200,9 @@ alias gg='lazygit'
 alias xc='pbcopy'
 alias xp='pbpaste'
 alias keybase_encrypt='func_keybase_encrypt'
+alias fly='fly5'
+alias defly4='func_fly4'
+alias defly5='func_fly5'
 
 eval "$(hub alias -s)"
 
