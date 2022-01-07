@@ -1,2 +1,7 @@
 dnspython==1.15.0
-pymongo
+boto3
+botocore
+requests
+urllib3
+hvac
+
