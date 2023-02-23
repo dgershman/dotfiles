@@ -49,7 +49,7 @@ ZSH_THEME="xxf"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws docker osx)
+plugins=(git osx kubectl)
 
 # User configuration
 
@@ -91,21 +91,6 @@ function func_findall() {
 	grep -RnisI $1 *
 }
 
-function func_java6() {
-	export JAVA_HOME=$JAVA6_HOME
-	echo $JAVA_HOME
-}
-
-function func_java7() {
-	export JAVA_HOME=$JAVA7_HOME
-	echo $JAVA_HOME
-}
-
-function func_java8() {
-	export JAVA_HOME=$JAVA8_HOME
-	echo $JAVA_HOME
-}
-
 function func_snmpq() {
 	echo 'Usage: snmpq [server] [MIB]'
 	snmpwalk -v 1 -c public $1 $2
@@ -120,7 +105,7 @@ function run() {
 }
 
 function func_superman() {
-	man -t $1 | open -f -a /Applications/Preview.app
+	man -t $1 | open -fa "Preview"
 }
 
 function func_sublime() {
@@ -162,6 +147,12 @@ function func_fly5() {
 	alias fly='fly5'
 }
 
+
+function func_gcm() {
+  default_branch=$(git remote show origin | grep 'HEAD' | cut -d' ' -f5)
+  git checkout "$default_branch"
+}
+
 alias ll='ls -al'
 alias h='history'
 alias c='clear'
@@ -169,9 +160,6 @@ alias findall=func_findall
 alias portinuse=func_portinuse
 alias scan='sudo nmap -sP 192.168.1.0/24'
 alias ip='clear && ifconfig en0'
-alias java6=func_java6
-alias java7=func_java7
-alias java8=func_java8
 alias snmpq='func_snmpq'
 alias icloud='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs'
 alias dockercli='eval "$(docker-machine env default)"'
@@ -192,10 +180,12 @@ alias atrips='func_att_ips'
 alias gpom='git push origin master'
 alias tf='terraform'
 alias tff='terraform fmt'
+alias tfi='terraform init'
 alias tfp='terraform plan -out=plan.plan'
 alias tfa='terraform apply plan.plan'
+alias tfv='terraform validate'
 alias st='/Applications/SourceTree.app/Contents/MacOS/SourceTree &'
-alias gnureset='rm -rf ~/.gnupg/S.gpg-agent* && source ~/.zshrc'
+alias gnureset='rm -rf ~/.gnupg/S.gpg-agent* && source ~/.zshrc && ssh -T git@github.com'
 alias gg='lazygit'
 alias xc='pbcopy'
 alias xp='pbpaste'
@@ -203,8 +193,27 @@ alias keybase_encrypt='func_keybase_encrypt'
 alias fly='fly5'
 alias defly4='func_fly4'
 alias defly5='func_fly5'
-alias "branch💣"='git branch | grep -v "master" | xargs git branch -D '
-eval "$(hub alias -s)"
+alias duors='map_relaystorage'
+alias hg='history | grep $1'
+alias k="kubectl"
+alias fork='open /Applications/Fork.app'
+alias history='history -i 0'
+alias vault_token='cat ~/.vault-token | pbcopy'
+alias gitl="git log --all --graph --pretty=format:'%C(red)%h%Creset -%C(cyan)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%cn>%Creset' --date=short"
+alias gitp="git gc --prune=now; git remote prune public"
+alias gcm='func_gcm'
+alias readme='curl -LO https://repo1.dso.mil/big-bang/apps/library-charts/gluon/-/raw/master/docs/README.md.gotmpl && curl -LO 
+https://repo1.dso.mil/big-bang/apps/library-charts/gluon/-/raw/master/docs/.helmdocsignore && curl -LO 
+https://repo1.dso.mil/big-bang/apps/library-charts/gluon/-/raw/master/docs/_templates.gotmpl && docker run --rm -v "`pwd`:/helm-docs" -u $(id -u) 
+jnorwood/helm-docs:v1.10.0 -s file -t /helm-docs/README.md.gotmpl -t /helm-docs/_templates.gotmpl --dry-run > README.md && rm .helmdocsignore README.md.gotmpl 
+_templates.gotmpl'
+
+
+# Dump a kubernetes secret
+# example usage: kubectl -n <namespace> get secret <secret-name> | dump_secret
+alias dump_secret='yq -r '\''.data | keys[] as $k | "key: \($k)", "value: \(.[$k])"'\'' | awk '\''/key: / {print $2} /value: / {system("echo "$2" | base64 -d && echo")}'\'''
+# show which account you are logged into
+alias account='{ aws sts get-caller-identity & aws iam list-account-aliases; } | jq -s ".|add"'
 
 #source `brew --prefix git`/etc/bash_completion.d/git-prompt.sh
 #export GIT_PS1_SHOWDIRTYSTATE='1'
@@ -217,27 +226,24 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 export JAVA6_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 export JAVA7_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home
 export JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home
-export PATH=$(pyenv root)/shims:/usr/local/sbin:/usr/local/share/npm/bin:$JAVA_HOME_6/bin:$PATH
 export JAVA_HOME=$JAVA8_HOME
 export LDFLAGS=-L/usr/local/opt/tcl-tk/lib
 export CPPFLAGS=-I/usr/local/opt/tcl-tk/include
 export NVM_DIR="$HOME/.nvm"
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/Projects/go
+export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 export PYTHONSTARTUP=$HOME/.pythonstartup
 
-eval "$(hub alias -s)"
-
 eval $( gpg-agent --daemon )
-export SSH_AUTH_SOCK=~/.gnupg/S.gpg-agent.ssh
 ssh-add -l
 
 . "$(brew --prefix nvm)/nvm.sh"
 
-export PATH=$PATH:/Users/danny/bin:$GOROOT/bin:$GOPATH/bin
+export PATH=$PATH:$HOME/bin:$GOROOT/bin:$GOPATH/bin
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if [ $TERM_PROGRAM = "iTerm.app" ]; then
+if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
   osascript -e 'tell application "System Events" to keystroke "e" using {command down, shift down}'
 fi
 
@@ -245,9 +251,51 @@ export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 eval "$(rbenv init -)"
-export PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
 setopt complete_aliases
 
+function color {
+    case $1 in
+    green)
+    echo -e "\033]6;1;bg;red;brightness;57\a"
+    echo -e "\033]6;1;bg;green;brightness;197\a"
+    echo -e "\033]6;1;bg;blue;brightness;77\a"
+    ;;
+    red)
+    echo -e "\033]6;1;bg;red;brightness;270\a"
+    echo -e "\033]6;1;bg;green;brightness;60\a"
+    echo -e "\033]6;1;bg;blue;brightness;83\a"
+    ;;
+    orange)
+    echo -e "\033]6;1;bg;red;brightness;227\a"
+    echo -e "\033]6;1;bg;green;brightness;143\a"
+    echo -e "\033]6;1;bg;blue;brightness;10\a"
+    ;;
+    esac
+ }
+
+_direnv_hook() {
+  trap -- '' SIGINT;
+  eval "$("/usr/local/bin/direnv" export zsh)";
+  trap - SIGINT;
+}
+typeset -ag precmd_functions;
+if [[ -z ${precmd_functions[(r)_direnv_hook]} ]]; then
+  precmd_functions=( _direnv_hook ${precmd_functions[@]} )
+fi
+typeset -ag chpwd_functions;
+if [[ -z ${chpwd_functions[(r)_direnv_hook]} ]]; then
+  chpwd_functions=( _direnv_hook ${chpwd_functions[@]} )
+fi
+
+export PATH=$PATH:/Applications/Sublime\ Text.app/Contents/SharedSupport/bin
+export EDITOR="subl -w"
+
+PATH="/Users/dgershman/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/dgershman/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/dgershman/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/dgershman/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/dgershman/perl5"; export PERL_MM_OPT;
+RPROMPT='$(kube_ps1) - $(echo $KUBECONFIG) (☁ $(echo $AWS_PROFILE))'
